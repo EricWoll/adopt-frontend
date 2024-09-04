@@ -1,6 +1,6 @@
-import { UserInterface } from '@/interfaces/User';
+import { UserType } from '@/types/User';
 
-export default function User({ user }: { user: UserInterface }) {
+export default function User({ user }: { user: UserType }) {
     return (
         <tr>
             <td className="text-left px-6 py-4 whitespace-nowrap">

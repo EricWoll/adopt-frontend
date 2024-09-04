@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import AuthButton from './AuthButton';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-export default function Navbar() {
+export default async function Navbar() {
+    const session = await getServerSession(authOptions);
+
     return (
         <div className="bg-gray-800">
             <div className="h-16 px-8 flex items-center">
@@ -20,11 +24,14 @@ export default function Navbar() {
                                 Animals
                             </Link>
                         </li>
-                        <li>
-                            <Link className="mx-3" href="/admin">
-                                Admin
-                            </Link>
-                        </li>
+                        {session?.user.role == 'ADMIN' && (
+                            <li>
+                                <Link className="mx-3" href="/admin">
+                                    Admin
+                                </Link>
+                            </li>
+                        )}
+
                         <li>
                             <AuthButton />
                         </li>

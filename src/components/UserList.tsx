@@ -2,38 +2,29 @@
 
 import { useEffect, useState } from 'react';
 import User from './User';
-import { UserInterface } from '@/interfaces/User';
+import { UserType } from '@/types/User';
+import { apiGet } from '@/tools/fetchHelpers';
 
 export default function UserList() {
-    const USER_API_BASE_URL = 'http://localhost:8080/api/v1/users';
-    const [users, setUsers] = useState<Array<UserInterface> | null>(null);
+    const [users, setUsers] = useState<Array<UserType> | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUsers = async () => {
             setLoading(true);
             try {
-                const response = await fetch(USER_API_BASE_URL, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Origin: 'http://localhost:3000',
-                    },
-                });
-                const users = await response.json();
-                setUsers(users);
+                setUsers(await apiGet('users'));
             } catch (error) {
                 console.log(error);
             }
             setLoading(false);
         };
-
-        fetchData();
+        fetchUsers();
     }, []);
 
     return (
         <div className=" container mx-auto my-8">
-            <div className="flex shadow border-b">
+            <div className="flex flex-col shadow border-b">
                 <table className="min-w-full">
                     <thead className="bg-gray-50">
                         <tr>
@@ -56,13 +47,22 @@ export default function UserList() {
                             {!users ? (
                                 <tr>No User Found</tr>
                             ) : (
-                                users.map((user) => (
-                                    <User key={user.userId} user={user} />
-                                ))
+                                users.map((user) => {
+                                    return (
+                                        <User key={user.username} user={user} />
+                                    );
+                                })
                             )}
                         </tbody>
                     )}
                 </table>
+                {loading && (
+                    <div className="flex justify-center items-center">
+                        <div className=" text-3xl px-10 py-2 my-5 bg-gray-50 text-slate-600 rounded">
+                            Loading
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

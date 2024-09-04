@@ -15,6 +15,7 @@ export default function AddUser() {
     const openModal = () => {
         setIsOpen(true);
     };
+
     return (
         <>
             <div className="container mx-auto my-8">
@@ -51,7 +52,7 @@ export default function AddUser() {
                                     Add New User
                                 </DialogTitle>
                                 <div className="flex max-w-md">
-                                    <div className="py-2">
+                                    <form className="py-2">
                                         <div className="h-auto my-4">
                                             <label className="block text-gray-600 text-sm font-normal">
                                                 Username
@@ -91,7 +92,7 @@ export default function AddUser() {
                                                 Save
                                             </button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </TransitionChild>
