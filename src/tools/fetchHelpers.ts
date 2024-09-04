@@ -1,19 +1,32 @@
-export async function apiGet(url: string) {
+export async function apiGet(url: string, authToken?: string) {
+    const headers = { 'Content-Type': 'application/json' };
+
+    if (authToken) {
+        Object.assign(headers, { Authorization: `Bearer ${authToken}` });
+    }
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            Origin: `${process.env.NEXT_PUBLIC_ORIGIN_URL}`,
-        },
+        headers: headers,
     });
     return await response.json();
 }
 
-export async function apiPost(url: string, bodyContent: any) {
+export async function apiPost(
+    url: string,
+    bodyContent: any,
+    authToken?: string
+) {
+    const headers = { 'Content-Type': 'application/json' };
+
+    if (authToken) {
+        Object.assign(headers, { Authorization: `Bearer ${authToken}` });
+    }
+
     return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
         method: 'POST',
         body: JSON.stringify(bodyContent),
-        headers: { 'Content-Type': 'application/json' },
+        headers: headers,
     });
 }
 
