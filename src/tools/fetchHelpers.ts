@@ -5,11 +5,10 @@ export async function apiGet(url: string, authToken?: string) {
         Object.assign(headers, { Authorization: `Bearer ${authToken}` });
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
+    return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
         method: 'GET',
         headers: headers,
     });
-    return await response.json();
 }
 
 export async function apiPost(

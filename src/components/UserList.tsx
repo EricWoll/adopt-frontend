@@ -13,7 +13,7 @@ export default function UserList() {
         const fetchUsers = async () => {
             setLoading(true);
             try {
-                setUsers(await apiGet('users'));
+                setUsers(await (await apiGet('users')).json());
             } catch (error) {
                 console.log(error);
             }
