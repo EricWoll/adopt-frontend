@@ -1,10 +1,12 @@
 import { UserType } from '@/types/User';
+import ImageRequest from './ImageRequest';
 
 export default function User({ user }: { user: UserType }) {
     return (
         <tr>
-            <td className="text-left px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-500">{user.username}</div>
+            <td className="px-6 py-4 whitespace-nowrap flex items-center">
+                <ImageRequest filename={user?.imageId} />
+                <p className="text-sm text-gray-500">{user.username}</p>
             </td>
             <td className="text-left px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-500">{user.email}</div>

@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import User from './User';
 import { UserType } from '@/types/User';
-import { apiGet } from '@/tools/fetchHelpers';
+import { apiGet } from '@/utils/fetchHelpers';
+import LoadingCircle from './LoadingCircle';
 
 export default function UserList() {
     const [users, setUsers] = useState<Array<UserType> | null>(null);
@@ -25,11 +26,11 @@ export default function UserList() {
     return (
         <div className=" container mx-auto my-8">
             <div className="flex flex-col shadow border-b">
-                <table className="min-w-full">
+                <table className="min-w-full table-auto">
                     <thead className="bg-gray-50">
                         <tr>
                             <th className="text-left font-medium text-gray-500 uppercase tracking-wide py-3 px-6">
-                                Username
+                                User
                             </th>
                             <th className="text-left font-medium text-gray-500 uppercase tracking-wide py-3 px-6">
                                 Email
@@ -58,9 +59,7 @@ export default function UserList() {
                 </table>
                 {loading && (
                     <div className="flex justify-center items-center">
-                        <div className=" text-3xl px-10 py-2 my-5 bg-gray-50 text-slate-600 rounded">
-                            Loading
-                        </div>
+                        <LoadingCircle />
                     </div>
                 )}
             </div>
